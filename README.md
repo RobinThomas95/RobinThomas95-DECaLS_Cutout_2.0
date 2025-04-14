@@ -23,7 +23,7 @@ You may contact the author for any clarifications at **robinthomas546@gmail.com*
 1. Clone the repository:
    ```bash
    git clone https://github.com/RobinThomas95/DECaLS_Cutout_2.0
-   cd DECaLSQuery
+   cd DECaLS_Cutout_2.0
 
 
 
