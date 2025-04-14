@@ -1,0 +1,8 @@
+setup.py
+DECaLSQuery.egg-info/PKG-INFO
+DECaLSQuery.egg-info/SOURCES.txt
+DECaLSQuery.egg-info/dependency_links.txt
+DECaLSQuery.egg-info/requires.txt
+DECaLSQuery.egg-info/top_level.txt
+decals/__init__.py
+decals/query.py

@@ -7,8 +7,10 @@ import os
 
 
 class DECaLSQuery(BaseQuery):
-    URL_TEMPLATE_JPG = 'https://www.legacysurvey.org/viewer/cutout.jpg?ra={ra}&dec={dec}&pix=0.25&layer=ls-dr9&size={size}'
-    URL_TEMPLATE_FITS = 'https://www.legacysurvey.org/viewer/cutout.fits?ra={ra}&dec={dec}&pix=0.25&layer=ls-dr9&size={size}'
+    URL_TEMPLATE_JPG = 'https://www.legacysurvey.org/viewer/cutout.jpg?ra={ra}&dec={dec}&pix=0.25&layer=ls-dr9-resid&size={size}'
+    URL_TEMPLATE_FITS = 'https://www.legacysurvey.org/viewer/cutout.fits?ra={ra}&dec={dec}&pix=0.25&layer=ls-dr9-resid&size={size}'
+
+
 
     def __init__(self, output_dir="downloads"):
         self.output_dir = output_dir
@@ -50,7 +52,7 @@ class DECaLSQuery(BaseQuery):
         else:
             print(f"File could not be retrieved from {url}")
 
-    def query_region(self, coordinates, size, download_type='both', galid=None):
+    def query_position(self, coordinates, size, download_type='both', galid=None):
         """
         Query the DECaLS cutout service for a region.
 
@@ -59,12 +61,20 @@ class DECaLSQuery(BaseQuery):
         - size: int, cutout size in pixels
         - download_type: 'jpg', 'fits', or 'both'
         - galid: str, unique identifier for the galaxy
-        """
+	        """
         ra = coordinates.ra.deg
         dec = coordinates.dec.deg
         galid = galid or f"decals_{ra}_{dec}"
-
         if download_type in ('jpg', 'both'):
             self.download_image(galid, ra, dec, size)
         if download_type in ('fits', 'both'):
             self.download_fits(galid, ra, dec, size)
+
+    def query_name(self, obj_name, size, download_type='both', galid=None):
+    
+        coords=SkyCoord.from_name(obj_name)     
+        galid = galid or obj_name
+
+        self.query_position(coords, size=size, download_type='both', galid=galid)
+
+        
